@@ -1,5 +1,6 @@
 import { useState } from "react";
 import classes from "./Modal.module.scss";
+import { TagsList } from "./components/TagsList";
 
 export const Modal = () => {
   const [formValues, setFormValues] = useState({
@@ -49,6 +50,7 @@ export const Modal = () => {
           ></textarea>
 
           {/* TODO: add tags box */}
+          <TagsList />
         </form>
       </div>
     </aside>

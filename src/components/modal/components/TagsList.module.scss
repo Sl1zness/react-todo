@@ -1,0 +1,107 @@
+@import "/src/styles/media";
+
+.tags-list {
+  padding-block: 14px;
+  padding-left: 14px;
+  border-radius: var(--border-radius-small);
+  border: 1px solid var(--color-grey-header);
+  color: var(--color-grey-text);
+  background-color: var(--color-white);
+  display: flex;
+  position: relative;
+
+  &__items {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 12px 8px;
+    font-size: 12px;
+  }
+
+  &__item {
+    width: max-content;
+    padding: 5px 8px;
+    font-weight: 700;
+    font-size: 12px;
+    border-radius: var(--border-radius-large);
+
+    span {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      border: 1px solid var(--color-grey-text);
+      color: var(--color-grey-text);
+      min-width: 15px;
+    }
+
+    &_orange {
+      color: #ffa500;
+      background-color: #ffa50044;
+    }
+
+    &_green {
+      color: #16a34a;
+      background-color: #16a34a44;
+    }
+
+    &_red {
+      color: #e11d48;
+      background-color: #e11d4844;
+    }
+
+    &_yellow {
+      color: #eab308;
+      background-color: #eab30844;
+    }
+
+    &_blue {
+      color: #3b82f6;
+      background-color: #3b82f644;
+    }
+  }
+
+  &__input {
+    width: 100px;
+    outline: none;
+    background: transparent;
+    border: 0;
+  }
+
+  &__dropdown {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: calc(100% - 2px);
+    left: -1px;
+    width: calc(100% + 2px);
+    max-height: 115px;
+    box-sizing: border-box;
+    border-bottom-left-radius: var(--border-radius-small);
+    border-bottom-right-radius: var(--border-radius-small);
+    border: 1px solid var(--color-grey-header);
+    border-top: 0;
+    background-color: var(--color-white);
+    overflow-y: scroll;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      width: 0;
+    }
+
+    &_shown {
+      display: flex;
+    }
+
+    &-item {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      font-size: 14px;
+
+      @include hover {
+        background-color: var(--color-grey-text);
+        color: var(--color-white);
+      }
+    }
+  }
+}
