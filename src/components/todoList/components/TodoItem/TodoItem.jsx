@@ -1,4 +1,5 @@
 import classes from "./TodoItem.module.scss";
+import "../../../../styles/TodoTag.scss";
 
 export const TodoItem = ({ itemHeader, itemDescription, itemTags }) => {
   return (
@@ -7,12 +8,7 @@ export const TodoItem = ({ itemHeader, itemDescription, itemTags }) => {
       <p className={classes["todo-item__description"]}>{itemDescription}</p>
       <div className={classes["todo-item__tags-list"]}>
         {itemTags.map((tag, index) => (
-          <span
-            key={index}
-            className={`${classes["todo-item__tag"]} ${
-              classes[tag.styleClass]
-            }`}
-          >
+          <span key={index} className={`${"todo-tag"} ${tag.styleClass}`}>
             {tag.name}
           </span>
         ))}

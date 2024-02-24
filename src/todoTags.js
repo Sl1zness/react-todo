@@ -1,7 +1,7 @@
 export const tagsList = [
-  { name: "TAG 1", styleClass: "todo-item__tag_orange" },
-  { name: "TAG 2", styleClass: "todo-item__tag_green" },
-  { name: "TAG 3", styleClass: "todo-item__tag_red" },
-  { name: "TAG 4", styleClass: "todo-item__tag_yellow" },
-  { name: "TAG 5", styleClass: "todo-item__tag_blue" },
+  { id: 0, name: "Diet", styleClass: "todo-tag_orange" },
+  { id: 1, name: "Health", styleClass: "todo-tag_green" },
+  { id: 2, name: "Gym", styleClass: "todo-tag_red" },
+  { id: 3, name: "Household chores", styleClass: "todo-tag_yellow" },
+  { id: 4, name: "Hobby", styleClass: "todo-tag_blue" },
 ];

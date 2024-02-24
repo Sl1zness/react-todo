@@ -1,3 +1,5 @@
+// TODO: Fix buttons overlaping backdrop
+
 .modal {
   display: flex;
 
@@ -11,6 +13,7 @@
     top: 0;
     left: 0;
     opacity: 0.4;
+    z-index: 10;
   }
 
   &__window {
@@ -23,6 +26,7 @@
     bottom: 100px;
     right: 0;
     border-radius: var(--border-radius-medium);
+    z-index: 30;
 
     &-form {
       display: flex;
@@ -44,5 +48,18 @@
 
   &__textarea {
     resize: none;
+  }
+
+  &__buttons {
+    display: flex;
+    flex-direction: row;
+    column-gap: 12px;
+    margin-top: 15px;
+    z-index: 20;
+
+    &-button {
+      display: block;
+      cursor: pointer;
+    }
   }
 }

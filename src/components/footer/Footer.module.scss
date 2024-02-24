@@ -26,12 +26,9 @@
   &__icons {
     display: flex;
     flex-direction: row;
-    column-gap: 12px;
     margin-top: 15px;
 
-    &-icon-add,
-    &-icon-confirm,
-    &-icon-deny {
+    &-icon-add {
       display: none;
       cursor: pointer;
 

@@ -17,49 +17,6 @@
     font-size: 12px;
   }
 
-  &__item {
-    width: max-content;
-    padding: 5px 8px;
-    font-weight: 700;
-    font-size: 12px;
-    border-radius: var(--border-radius-large);
-
-    span {
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      border-radius: 50%;
-      border: 1px solid var(--color-grey-text);
-      color: var(--color-grey-text);
-      min-width: 15px;
-    }
-
-    &_orange {
-      color: #ffa500;
-      background-color: #ffa50044;
-    }
-
-    &_green {
-      color: #16a34a;
-      background-color: #16a34a44;
-    }
-
-    &_red {
-      color: #e11d48;
-      background-color: #e11d4844;
-    }
-
-    &_yellow {
-      color: #eab308;
-      background-color: #eab30844;
-    }
-
-    &_blue {
-      color: #3b82f6;
-      background-color: #3b82f644;
-    }
-  }
-
   &__input {
     width: 100px;
     outline: none;
@@ -97,6 +54,7 @@
       align-items: center;
       padding: 10px;
       font-size: 14px;
+      cursor: pointer;
 
       @include hover {
         background-color: var(--color-grey-text);
