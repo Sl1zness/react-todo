@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import classes from "./Modal.module.scss";
 import { TagsList } from "./components/TagsList";
 import acceptIconImageUrl from "../../assets/acceptModalIcon.svg";
@@ -9,6 +9,7 @@ export const Modal = ({ hideModalFunction }) => {
   const { setTodos } = useContext(TodoContext);
 
   const [newTodo, setNewTodo] = useState({
+    id: "",
     header: "",
     description: "",
     tags: [],
@@ -20,15 +21,18 @@ export const Modal = ({ hideModalFunction }) => {
 
   const clearTodoFields = () => {
     setNewTodo({
+      ...newTodo,
       header: "",
       description: "",
       tags: [],
     });
   };
 
+  // TODO: create custom hook (?) and place new item both in localstorage and list simultaneously
   const pushNewTodo = () => {
     const buff = JSON.parse(localStorage.getItem("todos"));
     try {
+      newTodo.id = String(Math.round(Math.random() * 100000));
       buff !== null && buff.push(newTodo);
       localStorage.setItem("todos", JSON.stringify(buff));
       setTodos([...buff]);

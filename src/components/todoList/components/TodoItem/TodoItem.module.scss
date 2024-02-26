@@ -3,6 +3,10 @@
   background-color: var(--color-white);
   border-radius: var(--border-radius-medium);
   max-height: 170px;
+  max-width: 445px;
+  min-width: 445px;
+  box-sizing: border-box;
+  cursor: pointer;
 
   &__header {
     font-size: 24px;
@@ -24,5 +28,9 @@
     flex-flow: row wrap;
     margin-top: 12px;
     gap: 12px 8px;
+  }
+
+  &_dragged {
+    transform: scale(1.1);
   }
 }

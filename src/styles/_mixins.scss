@@ -18,6 +18,12 @@
   transform: translate(-50%, -50%);
 }
 
+@mixin abs-center-vertically {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
 @mixin custom-focus(
   $outline-color,
   $outline-width: 2px,
