@@ -1,20 +1,21 @@
 @import "/src/styles/media";
 
 .tags-list {
+  display: flex;
+  position: relative;
   padding-block: 14px;
   padding-left: 14px;
   border-radius: var(--border-radius-small);
   border: 1px solid var(--color-grey-header);
   color: var(--color-grey-text);
   background-color: var(--color-white);
-  display: flex;
-  position: relative;
 
   &__items {
     display: flex;
     flex-flow: row wrap;
     gap: 12px 8px;
     font-size: 12px;
+    min-height: 25px;
   }
 
   &__input {
@@ -22,6 +23,7 @@
     outline: none;
     background: transparent;
     border: 0;
+    font-size: 12px;
   }
 
   &__dropdown {

@@ -1,6 +1,6 @@
 import { tagsList } from "./todoTags";
 
-export const todos = [
+export const testTodoList = [
   {
     header: "TODO 1",
     description:

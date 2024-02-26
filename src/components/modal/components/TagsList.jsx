@@ -3,18 +3,14 @@ import classes from "./TagsList.module.scss";
 import { tagsList } from "../../../todoTags";
 import "../../../styles/TodoTag.scss";
 
-// TODO: REFACTOR???
-
-export const TagsList = ({ changeTags, formTagsList }) => {
-  console.log("XD");
-
-  const [isInputFocused, setInputFocused] = useState(false);
+export const TagsList = ({ changeSelectedTodoTags, newTodoTagsList }) => {
   const inputRef = useRef(null);
+  const [isInputFocused, setInputFocused] = useState(false);
+
   const [inputValue, setInputValue] = useState("");
   const [dropdownTagsList, setDropdownTagsList] = useState(
     tagsList.map((elem) => elem)
   );
-  const [selectedTags, setSelectedTags] = useState([]);
 
   const handleTagSelection = (e, tag) => {
     e.preventDefault(); // Added for better UX: user can hold mouse and drag it on empty space and cancel click if it accident
@@ -22,22 +18,20 @@ export const TagsList = ({ changeTags, formTagsList }) => {
       dropdownTagsList.indexOf(tag),
       1
     );
-
-    //setSelectedTags([...selectedTags, selectedTag]);
-
     setDropdownTagsList([...dropdownTagsList]);
-    changeTags({ tags: [...formTagsList, selectedTag] });
+    changeSelectedTodoTags({ tags: [...newTodoTagsList, selectedTag] });
   };
 
   const handleTagRemoval = (tag) => {
-    const [removedTag] = formTagsList.splice(formTagsList.indexOf(tag), 1);
+    const [removedTag] = newTodoTagsList.splice(
+      newTodoTagsList.indexOf(tag),
+      1
+    );
     dropdownTagsList.push(removedTag);
+    // TODO: consider removing sort and inserting it instantly in the correct place using ids
     dropdownTagsList.sort((a, b) => a.id > b.id);
-
-    //setSelectedTags([...selectedTags]);
-
     setDropdownTagsList([...dropdownTagsList]);
-    changeTags({ tags: formTagsList });
+    changeSelectedTodoTags({ tags: newTodoTagsList });
   };
 
   return (
@@ -46,7 +40,7 @@ export const TagsList = ({ changeTags, formTagsList }) => {
       onClick={() => inputRef.current.focus()}
     >
       <ul className={classes["tags-list__items"]}>
-        {formTagsList.map((tag, index) => (
+        {newTodoTagsList.map((tag, index) => (
           <li
             key={index}
             onClick={() => handleTagRemoval(tag)}
@@ -58,6 +52,7 @@ export const TagsList = ({ changeTags, formTagsList }) => {
 
         <input
           type="text"
+          placeholder={newTodoTagsList.length === 0 ? "Tags..." : undefined}
           className={classes["tags-list__input"]}
           onFocus={() => setInputFocused(true)}
           onBlur={() => setInputFocused(false)}
@@ -67,29 +62,17 @@ export const TagsList = ({ changeTags, formTagsList }) => {
         />
       </ul>
 
-      {/* TODO: fix false in classlist */}
+      {/* TODO: empty space remains in classlist. Fix */}
       <ul
         className={`${classes["tags-list__dropdown"]} ${
-          isInputFocused && classes["tags-list__dropdown_shown"]
+          isInputFocused ? classes["tags-list__dropdown_shown"] : ""
         }`}
       >
         {dropdownTagsList.map((tag, index) => {
           if (
-            tag.name.toLowerCase().includes(inputValue.trim().toLowerCase())
+            tag.name.toLowerCase().includes(inputValue.trim().toLowerCase()) ||
+            inputValue.length === 0
           ) {
-            return (
-              <li
-                onMouseDown={(e) => {
-                  setInputValue("");
-                  handleTagSelection(e, tag);
-                }}
-                key={index}
-                className={classes["tags-list__dropdown-item"]}
-              >
-                {tag.name}
-              </li>
-            );
-          } else if (inputValue.length === 0) {
             return (
               <li
                 onMouseDown={(e) => {

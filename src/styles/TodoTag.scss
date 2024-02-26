@@ -3,6 +3,8 @@
   font-weight: 700;
   font-size: 12px;
   border-radius: var(--border-radius-large);
+  height: 25px;
+  box-sizing: border-box;
 
   &_orange {
     color: #ffa500;

@@ -1,24 +1,49 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import classes from "./Modal.module.scss";
 import { TagsList } from "./components/TagsList";
 import acceptIconImageUrl from "../../assets/acceptModalIcon.svg";
 import denyIconImageUrl from "../../assets/denyModalIcon.svg";
+import { TodoContext } from "../../TodoContext";
 
-export const Modal = ({ hideModal }) => {
-  const [newTodoTaskFields, setNewTodoTaskFields] = useState({
+export const Modal = ({ hideModalFunction }) => {
+  const { setTodos } = useContext(TodoContext);
+
+  const [newTodo, setNewTodo] = useState({
     header: "",
     description: "",
     tags: [],
   });
 
-  const changeFormValue = (val) => {
-    console.log(newTodoTaskFields);
-    setNewTodoTaskFields({ ...newTodoTaskFields, ...val });
+  const changeTodoField = (field) => {
+    setNewTodo({ ...newTodo, ...field });
+  };
+
+  const clearTodoFields = () => {
+    setNewTodo({
+      header: "",
+      description: "",
+      tags: [],
+    });
+  };
+
+  const pushNewTodo = () => {
+    const buff = JSON.parse(localStorage.getItem("todos"));
+    try {
+      buff !== null && buff.push(newTodo);
+      localStorage.setItem("todos", JSON.stringify(buff));
+      setTodos([...buff]);
+    } catch (e) {
+      console.log("Todos is null");
+    }
   };
 
   return (
     <aside className={classes["modal"]}>
-      <div className={classes["modal__backdrop"]} onClick={hideModal}></div>
+      <div
+        className={classes["modal__backdrop"]}
+        onClick={hideModalFunction}
+      ></div>
+
       <div className={classes["modal__window"]}>
         <form
           action="/add-task"
@@ -31,60 +56,65 @@ export const Modal = ({ hideModal }) => {
             aria-label="Input your TODO task header here"
             placeholder="Task header..."
             className={classes["modal__input"]}
-            value={newTodoTaskFields.header}
-            onChange={(e) => {
-              changeFormValue({
+            value={newTodo.header}
+            onChange={(e) =>
+              changeTodoField({
                 header: e.target.value,
-              });
-            }}
+              })
+            }
           />
 
           <textarea
             name="todoDescription"
             placeholder="Task description..."
             aria-label="Input your TODO task description here"
-            className={classes["modal__textarea"]}
-            value={newTodoTaskFields.description}
+            className={`${classes["modal__input"]} ${classes["modal__textarea"]}`}
+            value={newTodo.description}
             onChange={(e) =>
-              changeFormValue({
+              changeTodoField({
                 description: e.target.value,
               })
             }
           ></textarea>
 
           <TagsList
-            changeTags={changeFormValue}
-            formTagsList={newTodoTaskFields.tags}
+            changeSelectedTodoTags={changeTodoField}
+            newTodoTagsList={newTodo.tags}
           />
         </form>
       </div>
-      <div className={classes["modal__buttons"]}>
-        <img
-          className={`${classes["modal__buttons-button"]}`}
-          src={acceptIconImageUrl}
-          alt="Deny creation of new TODO item"
-          width="36"
-          height="36"
-          onClick={() => {
-            setNewTodoTaskFields({
-              header: "",
-              description: "",
-              tags: [],
-            });
-            hideModal;
-          }}
-          role="button"
-        />
 
-        <img
-          className={`${classes["modal__buttons-button"]}`}
-          src={denyIconImageUrl}
-          alt="Confirm creation of new TODO item"
-          width="36"
-          height="36"
-          onClick={hideModal}
-          role="button"
-        />
+      <div className={classes["modal__buttons"]}>
+        <button
+          className={classes["modal__buttons-item"]}
+          onClick={() => {
+            pushNewTodo();
+            clearTodoFields();
+            hideModalFunction();
+          }}
+        >
+          <img
+            src={acceptIconImageUrl}
+            alt="Confirm creation of new TODO item"
+            width="36"
+            height="36"
+          />
+        </button>
+
+        <button
+          className={classes["modal__buttons-item"]}
+          onClick={() => {
+            clearTodoFields();
+            hideModalFunction();
+          }}
+        >
+          <img
+            src={denyIconImageUrl}
+            alt="Deny creation of new TODO item"
+            width="36"
+            height="36"
+          />
+        </button>
       </div>
     </aside>
   );
