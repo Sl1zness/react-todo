@@ -9,11 +9,9 @@ import { useEffect, useState } from "react";
 import { Main } from "./components/main/Main.jsx";
 
 function App() {
-  useEffect(() => {
-    if (localStorage.getItem("todos") === null) {
-      localStorage.setItem("todos", JSON.stringify(testTodoList));
-    }
-  }, []);
+  if (localStorage.getItem("todos") === null) {
+    localStorage.setItem("todos", JSON.stringify(testTodoList));
+  }
 
   const [todos, setTodos] = useState(JSON.parse(localStorage.getItem("todos")));
 

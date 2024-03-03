@@ -1,3 +1,21 @@
+@keyframes swipe-right {
+  0% {
+    left: 0;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+@keyframes swipe-left {
+  0% {
+    right: 0;
+  }
+  100% {
+    right: 100%;
+  }
+}
+
 .todo-item {
   padding: 25px 34px;
   background-color: var(--color-white);
@@ -7,6 +25,7 @@
   min-width: 445px;
   box-sizing: border-box;
   cursor: pointer;
+  position: relative;
 
   &__header {
     font-size: 24px;
@@ -32,5 +51,17 @@
 
   &_dragged {
     transform: scale(1.1);
+  }
+
+  &_swiped {
+    pointer-events: none;
+
+    &_right {
+      animation: swipe-right 0.3s ease 1;
+    }
+
+    &_left {
+      animation: swipe-left 0.3s ease 1;
+    }
   }
 }
